@@ -3,28 +3,30 @@ mexpr
 
 Macro for Common Lisp to allow infix syntax for mathematical expressions.
 
+The mexpr package contains the `infix` macro which converts infix expressions into Lisp S-Expressions.
+
 Examples
 --------
 
-The following are examples of how the `mexpr` macro can be used:
+The following are examples of how the `infix` macro can be used:
 
 ```lisp
-CL-USER> (mexpr 3 + 4)
+CL-USER> (infix 3 + 4)
 7
-CL-USER> (mexpr [ 3 + 4 ] * 5)
+CL-USER> (infix [ 3 + 4 ] * 5)
 35
-CL-USER (mexpr 3 + 4 * 5)
+CL-USER (infix 3 + 4 * 5)
 23
 CL-USER> (let ((x 0))
-	   		   (mexpr [ 4 + (1+ x) ] / (sqrt 4)))
+	   		   (infix [ 4 + (1+ x) ] / (sqrt 4)))
 2.5
-CL-USER> (mexpr 4 + 4 < 7 or 2 > 6 / 16)
+CL-USER> (infix 4 + 4 < 7 or 2 > 6 / 16)
 T
-CL-USER> (mexpr 5 = 6)
+CL-USER> (infix 5 = 6)
 NIL
-CL-USER> (mexpr 5 = 5)
+CL-USER> (infix 5 = 5)
 T
-CL-USER> (mexpr 2 expt 5)
+CL-USER> (infix 2 expt 5)
 32
 ```
 
@@ -33,7 +35,7 @@ You can use `defop` to add new operators:
 ```lisp
 CL-USER> (defop logior 5)
 5
-CL-USER> (mexpr 2 logior 4)
+CL-USER> (infix 2 logior 4)
 6
 ```
 
@@ -49,14 +51,14 @@ Usage
 
 The `mexpr` (or more verbose `bytecurry.mexpr`) package contains two main macros.
 
-The `mexpr` macro parses it's arguments as an infix expression and produces the corresponding s-expression. Each argument
+The `infix` macro parses it's arguments as an infix expression and produces the corresponding s-expression. Each argument
 is evaluated as one of the following forms:
 
   - *Grouping*: The special forms `[` and `]` are used for grouping expressions. (Parentheses were already taken.)
   - *Operator*: An operator is a symbol that has been registered using the `defop` macro. It represents a binary operation.
   - *Operand*: An operand is any form which is not an operator. This means that normal prefix forms can be embedded in the infix expression.
 	
-The `mexpr` macro can detect some syntax errors, in which case it will create a `syntax-error` condition. The type of the 
+The `infix` macro can detect some syntax errors, in which case it will create a `syntax-error` condition. The type of the 
 syntax error can be obtained with `syntax-error-type`. Unfortunately, at the moment some invalid forms simply produce strange results, such as a transposition of a operator and operand. 
 
 ---------------------------------------------------------------------------------

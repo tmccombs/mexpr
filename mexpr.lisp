@@ -103,7 +103,7 @@
       (handle-expr state expr))
     (finalize-operations state)))
 
-(defmacro mexpr (&rest exprs)
+(defmacro infix (&rest exprs)
   "Macro to convert an infix expression, into an s-expression."
   (mexpr-impl exprs))
 

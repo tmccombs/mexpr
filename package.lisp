@@ -3,7 +3,7 @@
 (defpackage :bytecurry.mexpr
   (:nicknames :mexpr)
   (:use :common-lisp :alexandria)
-  (:export :mexpr
+  (:export :infix
 	   :defop
 	   :syntax-error
 	   :syntax-error-type))
