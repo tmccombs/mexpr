@@ -5,21 +5,38 @@
   (:report (lambda (condition stream)
 	     (format stream "Mexpr Syntax Error: ~a." (syntax-error-type condition)))))
 
+  
+(defstruct op-state 
+  "Structure for state of the operation stacks."
+  (operands nil :type list)
+  (operators nil :type list))
+
 (eval-when (:compile-toplevel :load-toplevel :execute)
+    (defstruct operator
+      "Struct for information about an operator."
+      (precedence 0 :type integer :read-only t)
+      (func 'values :type (or cons symbol)))
+
     (defparameter *operators* (make-hash-table :test 'eq) 
       "Hash map of operator symbols to precedence."))
 
-(defmacro defop (name precedence)
+(defmacro defop (name precedence &optional (func name))
   (declare (symbol name) (integer precedence))
   "Define a new infix operator with the given name and precedence."
   `(eval-when (:compile-toplevel :load-toplevel :execute)
-     (setf (gethash ',name *operators*) ,precedence)))
+     (setf (gethash ',name *operators*) (make-operator :precedence ,precedence :func ',func))))
 
-(declaim (inline get-precedence))
 (defun get-precedence (op &optional default)
   (declare (symbol op))
   "Get the precedence of an operator."
-  (gethash op *operators* default))
+  (if-let ((operator (gethash op *operators*)))
+    (operator-precedence operator)
+    default))
+
+(defun get-operator-func (op)
+  (declare (symbol op))
+  "Get the symbol or lambda form for the operator."
+  (operator-func (gethash op *operators*)))
 
 (declaim (inline push-operator))
 (defun push-operator (op state)
@@ -53,10 +70,6 @@
 (defop rem 50)
 (defop expt 60)
 
-(defstruct op-state 
-  "Structure for state of the operation stacks."
-  (operands nil :type list)
-  (operators nil :type list))
 
 (defun finalize-operations (state)
   (do () ((null (op-state-operators state)))
@@ -65,22 +78,26 @@
     (error 'syntax-error :type :missing-operator))
   (car (op-state-operands state)))
 
-(defun reduce-state (state)
-  (declare (op-state state))
-  (let ((op (pop-operator state))
-	(right (pop-operand state))
+(defun do-operation (operator state)
+  (declare (symbol operator) (op-state state))
+  "Do the operation for the operands on the stack."
+  (let ((right (pop-operand state))
 	(left  (pop-operand state)))
     (when (not (and right left)) (error 'syntax-error :type :missing-operand))
-    (push-operand (list op left right) state)))
+    (push-operand (list (get-operator-func operator) left right) state)))
+
+
+(defun reduce-state (state)
+  (declare (op-state state))
+  (let ((op (pop-operator state)))
+    (do-operation op state)))
 
 (defun handle-end-group (state)
   (declare (op-state state))
   (loop for next-op = (pop-operator state) until (eq '[ next-op)
-       do (let ((right (pop-operand state))
-		(left  (pop-operand state)))
-	    (when (null next-op) (error 'syntax-error :type :mismatch-group))
-	    (when (not (and right left)) (error 'syntax-error :type :missing-operand))
-	    (push-operand (list next-op left right) state))))
+       do (progn
+	    (when (not next-op) (error 'syntax-error :type :mismatch-group))
+	    (do-operation next-op state))))
 
 (defun handle-expr (state expr)
   (declare (op-state state))
