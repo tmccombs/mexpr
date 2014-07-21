@@ -7,4 +7,5 @@
   :license "LLPGL"
   :components((:file "package")
 	      (:file "mexpr" :depends-on ("package")))
-  :depends-on (:alexandria))
+  :depends-on (:alexandria
+	       :cl-syntax))

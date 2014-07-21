@@ -124,7 +124,16 @@
   "Macro to convert an infix expression, into an s-expression."
   (mexpr-impl exprs))
 
+(defun infix-reader (stream char narg)
+  (declare (ignore char narg) (stream stream))
+  "Reader macro function to read infix expressions."
+  (mexpr-impl (read stream t nil t)))
 
+(define-package-syntax
+  (:merge :standard)
+  (:dispatch-macro-char #\# #\m #'infix-reader))
 
-  
-      
+(defmacro enable-infix-syntax ()
+  "Enable infix syntax with '#m', for example:
+#m(3 + 4) => 7"
+  '(use-syntax :mexpr))
