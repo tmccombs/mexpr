@@ -99,6 +99,6 @@ corresponds to a higher precedence. The precedence of the default operators is g
 | logxor     | 40         | `(logxor a b)`
 | ^          | 40         | `(logxor a b)`
 | logior     | 30         | `(logior a b)`
-| \&#124;    | 30         | `(logior a b)`
+| &#92;&#124;| 30         | `(logior a b)`
 | and        | 20         | `(and a b)`
 | or         | 10         | `(or a b)`
