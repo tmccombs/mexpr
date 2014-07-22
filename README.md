@@ -40,11 +40,11 @@ CL-USER> (infix 2 logior 4)
 ```
 
 ### Notes:
-	1. There always needs to be whitespace between operands and operators.
-	2. Variables and other forms can be used as operands.
-	3. Operators have an associated precedence. Higher precedence operators are performed first.
-	4. Operators of equal precedence are evaluated left to right.
-	5. [ and ] are used for grouping expressions (overriding precedence).
+1. There always needs to be whitespace between operands and operators.
+2. Variables and other forms can be used as operands.
+3. Operators have an associated precedence. Higher precedence operators are performed first.
+4. Operators of equal precedence are evaluated left to right.
+5. [ and ] are used for grouping expressions (overriding precedence).
 
 Usage
 -----
