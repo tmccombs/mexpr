@@ -64,7 +64,7 @@ syntax error can be obtained with `syntax-error-type`. Unfortunately, at the mom
 ---------------------------------------------------------------------------------
 
 The `defop` macro can be used to define new operators. It takes two parameters, the first is the unquoted symbol of the
-operator, the second is the desired precedence of the operator [(see below for precedence table)](#Precedence). The symbol
+operator, the second is the desired precedence of the operator [(see below for precedence table)](#precedence). The symbol
 should correspond to a function or macro which can accept exactly two arguments (although it may have more optional arguments).
 
 Precedence
@@ -99,6 +99,6 @@ corresponds to a higher precedence. The precedence of the default operators is g
 | logxor     | 40         | `(logxor a b)`
 | ^          | 40         | `(logxor a b)`
 | logior     | 30         | `(logior a b)`
-| \|         | 30         | `(logior a b)`
+| \&#124;    | 30         | `(logior a b)`
 | and        | 20         | `(and a b)`
 | or         | 10         | `(or a b)`
