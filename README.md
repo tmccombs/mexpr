@@ -74,10 +74,31 @@ Unlike prefix and postfix notations, infix notation uses operator precedence to 
 `mexpr` uses a numeric precedence system, where the precedence of an operator is a positive integer. A higher number
 corresponds to a higher precedence. The precedence of the default operators is given below:
 
-| Precedence |  Operators          |
-|:----------:|:--------------------|
-| 10         | `or`, `and`         |
-| 20         | =, /=, <, >, >=, <= |
-| 40         | +, -                |
-| 50         | *, /, `mod`, `rem`  |
-| 60         | `expt`              |
+| Operator   | Precedence | Translation of `a <op> b` 
+|:----------:|-----------:|:--------------------------
+| **         | 110        | `(expt a b)`
+| expt       | 110        | `(expt a b)`
+| *          | 100        | `(* a b)`
+| /          | 100        | `(/ a b)`
+| %          | 100        | `(mod a b)`
+| mod        | 100        | `(mod a b)`
+| rem        | 100        | `(rem a b)`
+| +          | 90         | `(+ a b)`
+| -          | 90         | `(- a b)`
+| ash        | 80         | `(ash a b)`
+| <<         | 80         | `(ash a b)`
+| >>         | 80         | `(ash a (- b))`
+| <          | 70         | `(< a b)`
+| >          | 70         | `(> a b)`
+| <=         | 70         | `(<= a b)`
+| >=         | 70         | `(>= a b)`
+| =          | 60         | `(= a b)`
+| /=         | 60         | `(/= a b)`
+| logand     | 50         | `(logand a b)`
+| &          | 50         | `(logand a b)`
+| logxor     | 40         | `(logxor a b)`
+| ^          | 40         | `(logxor a b)`
+| logior     | 30         | `(logior a b)`
+| \|         | 30         | `(logior a b)`
+| and        | 20         | `(and a b)`
+| or         | 10         | `(or a b)`

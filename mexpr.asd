@@ -15,7 +15,9 @@ to extend the syntax with additional operators."
   :version "0.1.1"
   :author "Thayne McCombs <astrothayne@gmail.com>"
   :license "LLPGL"
-  :components((:file "package")
-	      (:file "mexpr" :depends-on ("package")))
+  :serial t
+  :components ((:file "package")
+	       (:file "mexpr")
+	       (:file "operators"))
   :depends-on (:alexandria
 	       :cl-syntax))

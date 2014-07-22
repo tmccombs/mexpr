@@ -69,21 +69,6 @@ FUNC is a symbol or lambda form that the operator will translate into during mac
 (defun pop-operand (state)
   (pop (op-state-operands state)))
 
-(defop or 10)
-(defop and 10)
-(defop = 20)
-(defop /= 20)
-(defop < 20)
-(defop > 20)
-(defop >= 20)
-(defop <= 20)
-(defop + 40)
-(defop - 40)
-(defop * 50)
-(defop / 50)
-(defop mod 50)
-(defop rem 50)
-(defop expt 60)
 
 (defun finalize-operations (state)
   (do () ((null (op-state-operators state)))
@@ -125,7 +110,6 @@ FUNC is a symbol or lambda form that the operator will translate into during mac
 			   (push-operator expr state))
 			 (push-operand expr state))))
       (push-operand expr state)))
-			 
 			 
 (defun mexpr-impl (exprs)
   "Convert an infix expression, into an s-expression --implementation."

@@ -18,5 +18,7 @@ in lisp code using traditional infix syntax.")
 	   :infix-reader
 	   :enable-infix-syntax
 	   :syntax-error
-	   :syntax-error-type))
+	   :syntax-error-type
+	   ;operators:
+	   :\| :^ :& :<< :>> :% :**))
 	   
