@@ -8,6 +8,8 @@
 
 (defpackage :bytecurry.mexpr
   (:nicknames :mexpr)
+  (:documentation "A library for embedding mathematical expressions
+in lisp code using traditional infix syntax.")
   (:use :common-lisp 
 	:alexandria
 	:cl-syntax)

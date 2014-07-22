@@ -6,10 +6,15 @@
 ;; known as the LLGPL.
 (in-package :bytecurry.mexpr)
 
+(deftype form-head () 
+  "The first subform of a compound form."
+  '(or symbol (cons (eql lambda) cons)))
+
 (define-condition syntax-error (error)
   ((type :initarg :type :type 'keyword :reader syntax-error-type))
   (:report (lambda (condition stream)
-	     (format stream "Mexpr Syntax Error: ~a." (syntax-error-type condition)))))
+	     (format stream "Mexpr Syntax Error: ~a." (syntax-error-type condition))))
+  (:documentation "Error due to invalid syntax in infix expression"))
 
   
 (defstruct op-state 
@@ -21,14 +26,18 @@
     (defstruct operator
       "Struct for information about an operator."
       (precedence 0 :type integer :read-only t)
-      (func 'values :type (or cons symbol)))
+      (func 'values :type form-head))
 
     (defparameter *operators* (make-hash-table :test 'eq) 
       "Hash map of operator symbols to precedence."))
 
 (defmacro defop (name precedence &optional (func name))
-  (declare (symbol name) (integer precedence))
-  "Define a new infix operator with the given name and precedence."
+  (declare (symbol name) (type (integer 1 *) precedence) (form-head func))
+  "Define a new infix operator with the given name and precedence.
+
+NAME is the symbol which will be used as a binary operator in an infix expression
+PRECEDENCE is a positive integer for the precedence of the operator
+FUNC is a symbol or lambda form that the operator will translate into during macro-expansion"
   `(eval-when (:compile-toplevel :load-toplevel :execute)
      (setf (gethash ',name *operators*) (make-operator :precedence ,precedence :func ',func))))
 
@@ -75,7 +84,6 @@
 (defop mod 50)
 (defop rem 50)
 (defop expt 60)
-
 
 (defun finalize-operations (state)
   (do () ((null (op-state-operators state)))

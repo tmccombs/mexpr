@@ -7,8 +7,12 @@
 (in-package :asdf-user)
 
 (defsystem "mexpr"
-  :description "mexpr: Macro for infix math expressions."
-  :version "0.1.0"
+  :description "Macro for infix math expressions."
+  :long-description "mexpr is a library which contains a macro for
+embedding mathematical expressions in lisp code with a more traditional 
+infix syntax. It also contains a reader macro for said syntax, and a macro
+to extend the syntax with additional operators."
+  :version "0.1.1"
   :author "Thayne McCombs <astrothayne@gmail.com>"
   :license "LLPGL"
   :components((:file "package")
