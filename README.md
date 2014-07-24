@@ -33,10 +33,23 @@ CL-USER> (infix 2 expt 5)
 You can use `defop` to add new operators:
 
 ```lisp
-CL-USER> (defop logior 5)
-5
-CL-USER> (infix 2 logior 4)
-6
+CL-USER> (defop union 10) ; use function name and precedence
+CL-USER> (infix '(1 2) union '(2 3))
+(2 1 3 4)
+CL-USER> (defop ++ 100 append) ; use operator symbol, precedence, and defition symbol
+CL-USER> (infix '(1 2) ++ '(3 4))
+(1 2 3 4)
+CL-USER> (defop p 110 (lambda (a b) (+ (* a a) (* b b)))) ; use lambda for definition
+CL-USER> (infix 3 p 4)
+25
+```
+
+You can use a reader macro to make it a little simpler:
+
+```lisp
+CL-USER> (enable-infix-syntax) ; equivalent to (cl-syntax:use-syntax :mexpr)
+CL-USER> #m(3 + 4 ** 2)
+19
 ```
 
 ### Notes:
@@ -66,6 +79,13 @@ syntax error can be obtained with `syntax-error-type`. Unfortunately, at the mom
 The `defop` macro can be used to define new operators. It takes two parameters, the first is the unquoted symbol of the
 operator, the second is the desired precedence of the operator [(see below for precedence table)](#precedence). The symbol
 should correspond to a function or macro which can accept exactly two arguments (although it may have more optional arguments).
+
+---------------------------------------------------------------------------------
+
+The function `infix-reader` is macro dispatch function which is available to the user to use in
+any reader macro he/she desires. The package also registers the "#m" dispatch with cl-syntax, so 
+you can enable syntax of the form #m(<expr>) with `(cl-syntax:use-syntax :mexpr)`. Alternatively,
+`enable-infix-syntax` is a wrapper around `cl-syntax:use-syntax`.
 
 Precedence
 ----------
