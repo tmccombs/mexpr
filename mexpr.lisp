@@ -39,7 +39,8 @@ NAME is the symbol which will be used as a binary operator in an infix expressio
 PRECEDENCE is a positive integer for the precedence of the operator
 FUNC is a symbol or lambda form that the operator will translate into during macro-expansion"
   `(eval-when (:compile-toplevel :load-toplevel :execute)
-     (setf (gethash ',name *operators*) (make-operator :precedence ,precedence :func ',func))))
+     (setf (gethash ',name *operators*) (make-operator :precedence ,precedence :func ',func))
+     (values)))
 
 (defun get-precedence (op &optional default)
   (declare (symbol op))
