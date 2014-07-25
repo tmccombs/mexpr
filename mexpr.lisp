@@ -68,6 +68,8 @@ FUNC is a symbol or lambda form that the operator will translate into during mac
 
 (declaim (inline pop-operand))
 (defun pop-operand (state)
+  (when (null (op-state-operands state))
+    (error 'syntax-error :type :missing-operand))
   (pop (op-state-operands state)))
 
 
@@ -83,7 +85,6 @@ FUNC is a symbol or lambda form that the operator will translate into during mac
   "Do the operation for the operands on the stack."
   (let ((right (pop-operand state))
 	(left  (pop-operand state)))
-    (when (not (and right left)) (error 'syntax-error :type :missing-operand))
     (push-operand (list (get-operator-func operator) left right) state)))
 
 
