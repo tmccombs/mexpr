@@ -6,7 +6,7 @@
 ;; known as the LLGPL.
 (in-package :asdf-user)
 
-(defsystem "mexpr"
+(defsystem mexpr
   :description "Macro for infix math expressions."
   :long-description "mexpr is a library which contains a macro for
 embedding mathematical expressions in lisp code with a more traditional 
@@ -21,3 +21,4 @@ to extend the syntax with additional operators."
 	       (:file "operators"))
   :depends-on (:alexandria
 	       :cl-syntax))
+
