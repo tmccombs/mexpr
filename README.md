@@ -5,6 +5,14 @@ Macro for Common Lisp to allow infix syntax for mathematical expressions.
 
 The mexpr package contains the `infix` macro which converts infix expressions into Lisp S-Expressions.
 
+Installation
+------------
+The easiest way to install mexpr is with quicklisp.
+
+```lisp
+(ql:quickload :mexpr)
+```
+
 Examples
 --------
 
