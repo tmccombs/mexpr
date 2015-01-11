@@ -58,7 +58,7 @@ You can use a reader macro to make it a little simpler:
 
 ```lisp
 CL-USER> (enable-infix-syntax) ; equivalent to (cl-syntax:use-syntax :mexpr)
-CL-USER> #m(3 + 4 ** 2)
+CL-USER> #n(3 + 4 ** 2)
 19
 ```
 
@@ -80,9 +80,9 @@ is evaluated as one of the following forms:
   - *Grouping*: The special forms `[` and `]` are used for grouping expressions. (Parentheses were already taken.)
   - *Operator*: An operator is a symbol that has been registered using the `defop` macro. It represents a binary operation.
   - *Operand*: An operand is any form which is not an operator. This means that normal prefix forms can be embedded in the infix expression.
-	
-The `infix` macro can detect some syntax errors, in which case it will create a `syntax-error` condition. The type of the 
-syntax error can be obtained with `syntax-error-type`. Unfortunately, at the moment some invalid forms simply produce strange results, such as a transposition of a operator and operand. 
+
+The `infix` macro can detect some syntax errors, in which case it will create a `syntax-error` condition. The type of the
+syntax error can be obtained with `syntax-error-type`. Unfortunately, at the moment some invalid forms simply produce strange results, such as a transposition of a operator and operand.
 
 ---------------------------------------------------------------------------------
 
@@ -93,8 +93,8 @@ should correspond to a function or macro which can accept exactly two arguments 
 ---------------------------------------------------------------------------------
 
 The function `infix-reader` is macro dispatch function which is available to the user to use in
-any reader macro he/she desires. The package also registers the "#m" dispatch with cl-syntax, so 
-you can enable syntax of the form #m(<expr>) with `(cl-syntax:use-syntax :mexpr)`. Alternatively,
+any reader macro he/she desires. The package also registers the "#n" dispatch with cl-syntax, so
+you can enable syntax of the form `#n(<expr>)` with `(cl-syntax:use-syntax :mexpr)`. Alternatively,
 `enable-infix-syntax` is a wrapper around `cl-syntax:use-syntax`.
 
 Precedence
@@ -104,7 +104,7 @@ Unlike prefix and postfix notations, infix notation uses operator precedence to 
 `mexpr` uses a numeric precedence system, where the precedence of an operator is a positive integer. A higher number
 corresponds to a higher precedence. The precedence of the default operators is given below:
 
-| Operator   | Precedence | Translation of `a <op> b` 
+| Operator   | Precedence | Translation of `a <op> b`
 |:----------:|-----------:|:--------------------------
 | **         | 110        | `(expt a b)`
 | expt       | 110        | `(expt a b)`

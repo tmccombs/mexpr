@@ -6,18 +6,18 @@
 ;; known as the LLGPL.
 (in-package :bytecurry.mexpr)
 
-(deftype form-head () 
+(deftype form-head ()
   "The first subform of a compound form."
   '(or symbol (cons (eql lambda) cons)))
 
 (define-condition syntax-error (error)
   ((type :initarg :type :type 'keyword :reader syntax-error-type))
   (:report (lambda (condition stream)
-	     (format stream "Mexpr Syntax Error: ~a." (syntax-error-type condition))))
+             (format stream "Mexpr Syntax Error: ~a." (syntax-error-type condition))))
   (:documentation "Error due to invalid syntax in infix expression"))
 
-  
-(defstruct op-state 
+
+(defstruct op-state
   "Structure for state of the operation stacks."
   (operands nil :type list)
   (operators nil :type list))
@@ -28,7 +28,7 @@
       (precedence 0 :type integer :read-only t)
       (func 'values :type form-head))
 
-    (defparameter *operators* (make-hash-table :test 'eq) 
+    (defparameter *operators* (make-hash-table :test 'eq)
       "Hash map of operator symbols to precedence."))
 
 (defmacro defop (name precedence &optional (func name))
@@ -112,7 +112,7 @@ FUNC is a symbol or lambda form that the operator will translate into during mac
 			   (push-operator expr state))
 			 (push-operand expr state))))
       (push-operand expr state)))
-			 
+
 (defun mexpr-impl (exprs)
   "Convert an infix expression, into an s-expression --implementation."
   (let ((state (make-op-state)))
@@ -131,9 +131,9 @@ FUNC is a symbol or lambda form that the operator will translate into during mac
 
 (define-package-syntax
   (:merge :standard)
-  (:dispatch-macro-char #\# #\m #'infix-reader))
+  (:dispatch-macro-char #\# #\n #'infix-reader))
 
 (defmacro enable-infix-syntax ()
-  "Enable infix syntax with '#m', for example:
-#m(3 + 4) => 7"
+  "Enable infix syntax with '#n', for example:
+#n(3 + 4) => 7"
   '(use-syntax :mexpr))

@@ -10,15 +10,15 @@
   (:nicknames :mexpr)
   (:documentation "A library for embedding mathematical expressions
 in lisp code using traditional infix syntax.")
-  (:use :common-lisp 
-	:alexandria
-	:cl-syntax)
+  (:use :common-lisp
+        :alexandria
+        :cl-syntax)
   (:export :infix
-	   :defop
-	   :infix-reader
-	   :enable-infix-syntax
-	   :syntax-error
-	   :syntax-error-type
-	   ;operators:
-	   :\| :^ :& :<< :>> :% :**))
-	   
+           :defop
+           :infix-reader
+           :enable-infix-syntax
+           :syntax-error
+           :syntax-error-type
+           :syntax
+           ;;operators:
+           :\| :^ :& :<< :>> :% :**))
