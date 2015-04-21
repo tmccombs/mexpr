@@ -1,6 +1,8 @@
 mexpr
 =====
 
+[![Join the chat at https://gitter.im/tmccombs/mexpr](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/tmccombs/mexpr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Macro for Common Lisp to allow infix syntax for mathematical expressions.
 
 The mexpr package contains the `infix` macro which converts infix expressions into Lisp S-Expressions.
