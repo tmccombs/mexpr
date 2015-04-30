@@ -47,8 +47,8 @@
   (is (= 27 (infix 3 ** 3))))
 
 (test read-macro
-  (is (= 7 #m(3 + 4)))
-  (is (equal '(+ 3 4) '#m(3 + 4))))
+  (is (= 7 #n(3 + 4)))
+  (is (equal '(+ 3 4) '#n(3 + 4))))
 
 (test precedence
   (is (= 23 (infix 3 + 4 * 5)))
