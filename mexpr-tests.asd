@@ -7,10 +7,9 @@
 (in-package :asdf-user)
 
 (defsystem mexpr-tests
-  :depends-on (:mexpr :fiveam :named-readtables)
+  :depends-on (:mexpr :should-test :named-readtables)
   :perform (test-op (o s)
-		    (uiop:symbol-call :fiveam '#:run!
-				      (uiop:find-symbol* '#:mexpr-test-suite :bytecurry.mexpr.tests)))
+		    (uiop:symbol-call :should-test '#:test :package :bytecurry.mexpr-tests))
   :serial t
   :components ((:file "test-packages")
 	       (:file "mexpr-tests")))

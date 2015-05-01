@@ -6,10 +6,9 @@
 ;; known as the LLGPL.
 (in-package :cl-user)
 
-(defpackage :bytecurry.mexpr.tests
+(defpackage :bytecurry.mexpr-tests
   (:nicknames :mexpr-tests)
   (:documentation "Tests for mexpr.")
   (:use :common-lisp
 	:bytecurry.mexpr
-	:5am)
-  (:export :mexpr-test-suite))
+	:st))

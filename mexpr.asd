@@ -20,4 +20,5 @@ to extend the syntax with additional operators."
                (:file "mexpr")
                (:file "operators"))
   :depends-on (:alexandria
-               :cl-syntax))
+               :cl-syntax)
+  :in-order-to ((test-op (test-op :mexpr-tests))))
