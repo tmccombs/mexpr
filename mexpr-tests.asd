@@ -7,6 +7,9 @@
 (in-package :asdf-user)
 
 (defsystem mexpr-tests
+  :description "Tests for mexpr infix syntax library."
+  :author "Thayne McCombs <bytecurry.software@gmail.com>"
+  :license "LLGPL"
   :depends-on (:mexpr :should-test :named-readtables)
   :perform (test-op (o s)
 		    (uiop:symbol-call :should-test '#:test :package :bytecurry.mexpr-tests))

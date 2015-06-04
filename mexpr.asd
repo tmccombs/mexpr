@@ -13,7 +13,7 @@ embedding mathematical expressions in lisp code with a more traditional
 infix syntax. It also contains a reader macro for said syntax, and a macro
 to extend the syntax with additional operators."
   :version "0.2.0"
-  :author "Thayne McCombs <astrothayne@gmail.com>"
+  :author "Thayne McCombs <bytecurry.software@gmail.com>"
   :license "LLPGL"
   :serial t
   :components ((:file "package")
