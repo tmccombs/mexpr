@@ -12,8 +12,6 @@ env:
 
 install:
     - curl -L https://github.com/luismbo/cl-travis/raw/master/install.sh | sh
-    - git clone https://gitlab.common-lisp.net/alexandria/alexandria.git ~/lisp/alexandria
-    - git clone https://github.com/m2ym/cl-syntax.git ~/lisp/cl-syntax
 
 script:
     - cl -e '(ql:quickload :mexpr-tests)'
