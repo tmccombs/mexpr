@@ -16,5 +16,5 @@ install:
 
 script:
     - cl -e '(ql:quickload :mexpr-tests)'
-         -e '(unless (st:run :package :mexpr-tests)
+         -e '(unless (st:test :package :mexpr-tests)
                (uiop:quit 1))'
