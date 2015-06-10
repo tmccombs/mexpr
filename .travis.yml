@@ -1,0 +1,19 @@
+language: lisp
+
+env:
+	matrix:
+		- LISP=sbcl
+		- LISP=ccl
+		- LISP=allegro
+		- LISP=ecl
+		- LISP=clisp
+
+install:
+	- curl -L https://github.com/luismbo/cl-travis/raw/master/install.sh | sh
+	- git clone https://gitlab.common-lisp.net/alexandria/alexandria.git ~/lisp/alexandria
+	- git clone https://github.com/m2ym/cl-syntax.git ~/lisp/cl-syntax
+
+script:
+	- cl -e '(ql:quickload :mexpr-tests)'
+	     -e '(unless (st:run :package :mexpr-tests)
+			   (uiop:quit 1))'
