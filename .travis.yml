@@ -6,8 +6,10 @@ env:
         - LISP=sbcl
         - LISP=ccl
         - LISP=allegro
-        - LISP=ecl
-        - LISP=clisp
+        # These don't work because rutils tries to intern bordeaux-threads in the cl package
+        # figure out how to fix this.
+        #- LISP=ecl
+        #- LISP=clisp
 
 install:
     - curl -L https://github.com/luismbo/cl-travis/raw/master/install.sh | sh
